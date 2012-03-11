@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308215846) do
+ActiveRecord::Schema.define(:version => 20120311080222) do
+
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "homepage"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "postal"
+  end
+
+  add_index "locations", ["id"], :name => "index_locations_on_id"
+  add_index "locations", ["name"], :name => "index_locations_on_name"
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
