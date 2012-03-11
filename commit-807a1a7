@@ -1,0 +1,448 @@
+commit 807a1a7b93c272b2f0510f03fb1cb10db99725f4
+Author: james <madbuysg@yahoo.com>
+Date:   Sun Mar 11 19:02:56 2012 +0800
+
+    'event'
+
+diff --git a/app/assets/javascripts/events.js.coffee b/app/assets/javascripts/events.js.coffee
+new file mode 100644
+index 0000000..7615679
+--- /dev/null
++++ b/app/assets/javascripts/events.js.coffee
+@@ -0,0 +1,3 @@
++# Place all the behaviors and hooks related to the matching controller here.
++# All this logic will automatically be available in application.js.
++# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+diff --git a/app/assets/stylesheets/events.css.scss b/app/assets/stylesheets/events.css.scss
+new file mode 100644
+index 0000000..04d79bd
+--- /dev/null
++++ b/app/assets/stylesheets/events.css.scss
+@@ -0,0 +1,3 @@
++// Place all the styles related to the events controller here.
++// They will automatically be included in application.css.
++// You can use Sass (SCSS) here: http://sass-lang.com/
+diff --git a/app/controllers/events_controller.rb b/app/controllers/events_controller.rb
+new file mode 100644
+index 0000000..dfcd41e
+--- /dev/null
++++ b/app/controllers/events_controller.rb
+@@ -0,0 +1,83 @@
++class EventsController < ApplicationController
++  # GET /events
++  # GET /events.json
++  def index
++    @events = Event.all
++
++    respond_to do |format|
++      format.html # index.html.erb
++      format.json { render json: @events }
++    end
++  end
++
++  # GET /events/1
++  # GET /events/1.json
++  def show
++    @event = Event.find(params[:id])
++
++    respond_to do |format|
++      format.html # show.html.erb
++      format.json { render json: @event }
++    end
++  end
++
++  # GET /events/new
++  # GET /events/new.json
++  def new
++    @event = Event.new
++
++    respond_to do |format|
++      format.html # new.html.erb
++      format.json { render json: @event }
++    end
++  end
++
++  # GET /events/1/edit
++  def edit
++    @event = Event.find(params[:id])
++  end
++
++  # POST /events
++  # POST /events.json
++  def create
++    @event = Event.new(params[:event])
++
++    respond_to do |format|
++      if @event.save
++        format.html { redirect_to @event, notice: 'Event was successfully created.' }
++        format.json { render json: @event, status: :created, location: @event }
++      else
++        format.html { render action: "new" }
++        format.json { render json: @event.errors, status: :unprocessable_entity }
++      end
++    end
++  end
++
++  # PUT /events/1
++  # PUT /events/1.json
++  def update
++    @event = Event.find(params[:id])
++
++    respond_to do |format|
++      if @event.update_attributes(params[:event])
++        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
++        format.json { head :no_content }
++      else
++        format.html { render action: "edit" }
++        format.json { render json: @event.errors, status: :unprocessable_entity }
++      end
++    end
++  end
++
++  # DELETE /events/1
++  # DELETE /events/1.json
++  def destroy
++    @event = Event.find(params[:id])
++    @event.destroy
++
++    respond_to do |format|
++      format.html { redirect_to events_url }
++      format.json { head :no_content }
++    end
++  end
++end
+diff --git a/app/helpers/events_helper.rb b/app/helpers/events_helper.rb
+new file mode 100644
+index 0000000..8a9a878
+--- /dev/null
++++ b/app/helpers/events_helper.rb
+@@ -0,0 +1,2 @@
++module EventsHelper
++end
+diff --git a/app/models/event.rb b/app/models/event.rb
+new file mode 100644
+index 0000000..3a829fd
+--- /dev/null
++++ b/app/models/event.rb
+@@ -0,0 +1,2 @@
++class Event < ActiveRecord::Base
++end
+diff --git a/app/views/events/_form.html.erb b/app/views/events/_form.html.erb
+new file mode 100644
+index 0000000..739d10e
+--- /dev/null
++++ b/app/views/events/_form.html.erb
+@@ -0,0 +1,25 @@
++<%= form_for(@event) do |f| %>
++  <% if @event.errors.any? %>
++    <div id="error_explanation">
++      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
++
++      <ul>
++      <% @event.errors.full_messages.each do |msg| %>
++        <li><%= msg %></li>
++      <% end %>
++      </ul>
++    </div>
++  <% end %>
++
++  <div class="field">
++    <%= f.label :location_id %><br />
++    <%= f.number_field :location_id %>
++  </div>
++  <div class="field">
++    <%= f.label :time %><br />
++    <%= f.datetime_select :time %>
++  </div>
++  <div class="actions">
++    <%= f.submit %>
++  </div>
++<% end %>
+diff --git a/app/views/events/edit.html.erb b/app/views/events/edit.html.erb
+new file mode 100644
+index 0000000..d7d4525
+--- /dev/null
++++ b/app/views/events/edit.html.erb
+@@ -0,0 +1,6 @@
++<h1>Editing event</h1>
++
++<%= render 'form' %>
++
++<%= link_to 'Show', @event %> |
++<%= link_to 'Back', events_path %>
+diff --git a/app/views/events/index.html.erb b/app/views/events/index.html.erb
+new file mode 100644
+index 0000000..421a6b4
+--- /dev/null
++++ b/app/views/events/index.html.erb
+@@ -0,0 +1,25 @@
++<h1>Listing events</h1>
++
++<table>
++  <tr>
++    <th>Location</th>
++    <th>Time</th>
++    <th></th>
++    <th></th>
++    <th></th>
++  </tr>
++
++<% @events.each do |event| %>
++  <tr>
++    <td><%= event.location_id %></td>
++    <td><%= event.time %></td>
++    <td><%= link_to 'Show', event %></td>
++    <td><%= link_to 'Edit', edit_event_path(event) %></td>
++    <td><%= link_to 'Destroy', event, confirm: 'Are you sure?', method: :delete %></td>
++  </tr>
++<% end %>
++</table>
++
++<br />
++
++<%= link_to 'New Event', new_event_path %>
+diff --git a/app/views/events/new.html.erb b/app/views/events/new.html.erb
+new file mode 100644
+index 0000000..6119978
+--- /dev/null
++++ b/app/views/events/new.html.erb
+@@ -0,0 +1,5 @@
++<h1>New event</h1>
++
++<%= render 'form' %>
++
++<%= link_to 'Back', events_path %>
+diff --git a/app/views/events/show.html.erb b/app/views/events/show.html.erb
+new file mode 100644
+index 0000000..473ca8e
+--- /dev/null
++++ b/app/views/events/show.html.erb
+@@ -0,0 +1,15 @@
++<p id="notice"><%= notice %></p>
++
++<p>
++  <b>Location:</b>
++  <%= @event.location_id %>
++</p>
++
++<p>
++  <b>Time:</b>
++  <%= @event.time %>
++</p>
++
++
++<%= link_to 'Edit', edit_event_path(@event) %> |
++<%= link_to 'Back', events_path %>
+diff --git a/config/routes.rb b/config/routes.rb
+index b707b86..749abfa 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -1,79 +1,79 @@
+-SampleApp::Application.routes.draw do
+-  resources :locations
++SampleApp::Application.routes.draw do
++  resources :events
+ 
+-  resources :users do
+-    member do
+-      get :following, :followers
+-    end
+-  end
+-  resources :sessions, only: [:new, :create, :destroy]
+-  resources :microposts, only: [:create, :destroy]
+-  resources :relationships, only: [:create, :destroy]
+-      
+-  root to: 'static_pages#home'
+-
+-  match '/signup',  to: 'users#new'
+-  match '/signin',  to: 'sessions#new'
+-  match '/signout', to: 'sessions#destroy', via: :delete
+-      
+-  match '/help',    to: 'static_pages#help'
+-  match '/about',   to: 'static_pages#about'
+-  match '/contact', to: 'static_pages#contact'
+-
+-  # The priority is based upon order of creation:
+-  # first created -> highest priority.
+-
+-  # Sample of regular route:
+-  #   match 'products/:id' => 'catalog#view'
+-  # Keep in mind you can assign values other than :controller and :action
+-
+-  # Sample of named route:
+-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+-  # This route can be invoked with purchase_url(:id => product.id)
+-
+-  # Sample resource route (maps HTTP verbs to controller actions automatically):
+-  #   resources :products
+-
+-  # Sample resource route with options:
+-  #   resources :products do
+-  #     member do
+-  #       get 'short'
+-  #       post 'toggle'
+-  #     end
+-  #
+-  #     collection do
+-  #       get 'sold'
+-  #     end
+-  #   end
+-
+-  # Sample resource route with sub-resources:
+-  #   resources :products do
+-  #     resources :comments, :sales
+-  #     resource :seller
+-  #   end
+-
+-  # Sample resource route with more complex sub-resources
+-  #   resources :products do
+-  #     resources :comments
+-  #     resources :sales do
+-  #       get 'recent', :on => :collection
+-  #     end
+-  #   end
+-
+-  # Sample resource route within a namespace:
+-  #   namespace :admin do
+-  #     # Directs /admin/products/* to Admin::ProductsController
+-  #     # (app/controllers/admin/products_controller.rb)
+-  #     resources :products
+-  #   end
+-
+-  # You can have the root of your site routed with "root"
+-  # just remember to delete public/index.html.
+-  # root :to => 'welcome#index'
+-
+-  # See how all your routes lay out with "rake routes"
+-
+-  # This is a legacy wild controller route that's not recommended for RESTful applications.
+-  # Note: This route will make all actions in every controller accessible via GET requests.
+-  # match ':controller(/:action(/:id))(.:format)'
+-end
++  resources :users do
++    member do
++      get :following, :followers
++    end
++  end
++  resources :sessions, only: [:new, :create, :destroy]
++  resources :microposts, only: [:create, :destroy]
++  resources :relationships, only: [:create, :destroy]
++      
++  root to: 'static_pages#home'
++
++  match '/signup',  to: 'users#new'
++  match '/signin',  to: 'sessions#new'
++  match '/signout', to: 'sessions#destroy', via: :delete
++      
++  match '/help',    to: 'static_pages#help'
++  match '/about',   to: 'static_pages#about'
++  match '/contact', to: 'static_pages#contact'
++
++  # The priority is based upon order of creation:
++  # first created -> highest priority.
++
++  # Sample of regular route:
++  #   match 'products/:id' => 'catalog#view'
++  # Keep in mind you can assign values other than :controller and :action
++
++  # Sample of named route:
++  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
++  # This route can be invoked with purchase_url(:id => product.id)
++
++  # Sample resource route (maps HTTP verbs to controller actions automatically):
++  #   resources :products
++
++  # Sample resource route with options:
++  #   resources :products do
++  #     member do
++  #       get 'short'
++  #       post 'toggle'
++  #     end
++  #
++  #     collection do
++  #       get 'sold'
++  #     end
++  #   end
++
++  # Sample resource route with sub-resources:
++  #   resources :products do
++  #     resources :comments, :sales
++  #     resource :seller
++  #   end
++
++  # Sample resource route with more complex sub-resources
++  #   resources :products do
++  #     resources :comments
++  #     resources :sales do
++  #       get 'recent', :on => :collection
++  #     end
++  #   end
++
++  # Sample resource route within a namespace:
++  #   namespace :admin do
++  #     # Directs /admin/products/* to Admin::ProductsController
++  #     # (app/controllers/admin/products_controller.rb)
++  #     resources :products
++  #   end
++
++  # You can have the root of your site routed with "root"
++  # just remember to delete public/index.html.
++  # root :to => 'welcome#index'
++
++  # See how all your routes lay out with "rake routes"
++
++  # This is a legacy wild controller route that's not recommended for RESTful applications.
++  # Note: This route will make all actions in every controller accessible via GET requests.
++  # match ':controller(/:action(/:id))(.:format)'
++end
+diff --git a/db/migrate/20120308193644_add_admin_to_users.rb b/db/migrate/20120308193644_add_admin_to_users.rb
+index 5d9b51a..9332d9c 100644
+--- a/db/migrate/20120308193644_add_admin_to_users.rb
++++ b/db/migrate/20120308193644_add_admin_to_users.rb
+@@ -1,5 +1,5 @@
+ class AddAdminToUsers < ActiveRecord::Migration
+   def change
+-    add_column :users, :admin, :string
++    add_column :users, :admin, :boolean, default: false
+   end
+ end
+diff --git a/db/migrate/20120311103542_create_events.rb b/db/migrate/20120311103542_create_events.rb
+new file mode 100644
+index 0000000..6f9bebf
+--- /dev/null
++++ b/db/migrate/20120311103542_create_events.rb
+@@ -0,0 +1,12 @@
++class CreateEvents < ActiveRecord::Migration
++  def change
++    create_table :events do |t|
++      t.integer :location_id
++      t.datetime :time
++
++      t.timestamps
++    end
++add_index :events, [:id]
++
++  end
++end
+diff --git a/db/schema.rb b/db/schema.rb
+index 6343400..6bcfafb 100644
+--- a/db/schema.rb
++++ b/db/schema.rb
+@@ -11,7 +11,16 @@
+ #
+ # It's strongly recommended to check this file into your version control system.
+ 
+-ActiveRecord::Schema.define(:version => 20120311080222) do
++ActiveRecord::Schema.define(:version => 20120311103542) do
++
++  create_table "events", :force => true do |t|
++    t.integer  "location_id"
++    t.datetime "time"
++    t.datetime "created_at",  :null => false
++    t.datetime "updated_at",  :null => false
++  end
++
++  add_index "events", ["id"], :name => "index_events_on_id"
+ 
+   create_table "locations", :force => true do |t|
+     t.string   "name"

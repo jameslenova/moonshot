@@ -11,16 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120311103542) do
-
-  create_table "events", :force => true do |t|
-    t.integer  "location_id"
-    t.datetime "time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "events", ["id"], :name => "index_events_on_id"
+ActiveRecord::Schema.define(:version => 20120311080222) do
 
   create_table "locations", :force => true do |t|
     t.string   "name"
