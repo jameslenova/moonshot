@@ -15,6 +15,8 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find(params[:id])
 
+    @event = @location.events.build
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @location }
