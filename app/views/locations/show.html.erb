@@ -17,5 +17,11 @@
 
 <%= render 'eventform' %>
 
+<ol class="events">
+        <%= render @events %>
+      </ol>
+      <%= will_paginate @events %>
+
+
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>

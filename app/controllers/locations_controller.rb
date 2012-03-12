@@ -16,6 +16,8 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
 
     @event = @location.events.build
+@events = @location.events.paginate(page: params[:page])
+
 
     respond_to do |format|
       format.html # show.html.erb
