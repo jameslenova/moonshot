@@ -1,5 +1,6 @@
 SampleApp::Application.routes.draw do
   resources :locations
+  resources :events
 
   resources :users do
     member do
