@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
+  has_many :freefors, dependent: :destroy
+  has_many :events, through: :freefors, source: :event
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -33,6 +35,20 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
     relationships.find_by_followed_id(other_user.id).destroy
   end
+
+
+  def freefor?(event)
+    freefors.find_by_event_id(event.id)
+  end
+
+def join!(event)
+    freefors.create!(event_id: event.id)
+  end
+
+def unjoin!(event)
+    freefors.find_by_event_id(event.id).destroy
+  end
+
 
   private
 

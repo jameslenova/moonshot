@@ -5,6 +5,15 @@
   <%= event.time %>
 </p>
 
+<% if signed_in? %>
+  <div id="n_<%=event.id%>">
+  <% if current_user.freefor?(event) %>
+    <%= render 'events/unjoinevent', :event=>event %>
+  <% else %>
+    <%= render 'events/joinevent', :event=>event %>
 
+  <% end %>
+  </div>
+<% end %>
 
 </li>

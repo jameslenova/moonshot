@@ -1,0 +1,5 @@
+<%= form_for(current_user.freefors.find_by_event_id(event.id),
+             html: { method: :delete },
+             remote: true) do |f| %>
+  <%= f.submit "UnJoin", :class => "btn btn-large" %>
+<% end %>

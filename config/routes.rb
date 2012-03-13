@@ -1,15 +1,21 @@
 SampleApp::Application.routes.draw do
+  get "freefors/create"
+
+  get "freefors/destroy"
+
   resources :locations
   resources :events
 
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers,:events
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  resources :freefors, only: [:create, :destroy]
+
       
   root to: 'static_pages#home'
 
