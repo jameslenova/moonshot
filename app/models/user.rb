@@ -11,6 +11,13 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
+has_many :circleusers, :foreign_key => "user_id",
+                           :dependent => :destroy
+                           
+  has_many :circles, :through => :circleusers, :source => :circle
+                           
+
+
   before_save :create_remember_token
 
   validates :name,  presence: true, length: { maximum: 50 }

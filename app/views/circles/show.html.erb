@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event:</b>
+  <%= @circle.event_id %>
+</p>
+
+<p>
+  <b>Table:</b>
+  <%= @circle.table %>
+</p>
+
+
+<%= link_to 'Edit', edit_circle_path(@circle) %> |
+<%= link_to 'Back', circles_path %>
