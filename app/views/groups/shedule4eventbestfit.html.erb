@@ -1,0 +1,27 @@
+<h1>Listing groups</h1>
+<%= @arrayofgroupspopularity.count  %>
+<%= @arrayofgroupspopularity.inspect  %>
+<table>
+  <tr>
+    <th>first</th>
+    
+    
+    
+    
+  </tr>
+
+<% @arrayofgroupspopularity.each do |gp| %>
+  <tr>
+    <%= gp.inspect %>
+    
+    
+    
+    
+  
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_event_path %>

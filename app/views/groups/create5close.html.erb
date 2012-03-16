@@ -1,0 +1,30 @@
+<h1>Listing groups</h1>
+<%= @foundgroups.count  %>
+<table>
+  <tr>
+    <th>first</th>
+    <th>second</th>
+    <th>third</th>
+    <th>fouth</th>
+    <th>fifth</th>
+    
+    
+  </tr>
+
+<% @foundgroups.each do |gp| %>
+  <tr>
+    <td><%= gp.first %></td>
+    <td><%= gp.second %></td>
+    <td><%= gp.third %></td>
+    <td><%= gp.fouth %></td>
+    <td><%= gp.fifth %></td>
+    
+    
+  
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_event_path %>

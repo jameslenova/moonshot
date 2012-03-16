@@ -1,0 +1,58 @@
+<h1>Listing groups</h1>
+<%= @arrayofgroupspopularity.length  %>
+<%= @arrayofgroupspopularity.inspect  %>
+
+<br>
+  <br>
+    
+noclash below
+<%= @arrayofgroupspopularitynoclash.length  %>
+<%= @arrayofgroupspopularitynoclash.inspect  %>
+
+noclash above
+
+
+circle begin here 
+<%=@allcircle.inspect %>
+
+<%@allcircle.each do |gp| %>
+one circle begin here <br/>
+<% gp.users.each do |u| %>
+one user
+<%= u.inspect %>
+one user end <br/>
+
+<% end %>
+one circle end here <br/>
+<% end %>
+
+
+circle end here 
+
+
+
+
+<table>
+  <tr>
+    <th>first</th>
+    
+    
+    
+    
+  </tr>
+
+<% @arrayofgroupspopularity.each do |gp| %>
+  <tr>
+    <%= gp.inspect %>
+    
+    
+    
+    
+  
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Event', new_event_path %>
