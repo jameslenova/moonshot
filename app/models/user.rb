@@ -60,30 +60,31 @@ has_many :circleusers, :foreign_key => "user_id",
 
 
  def promote
- self.rank=0
- princelevel = 100
- gv = self.groupvolume
-  arrayranks = Array.new
+    self.rankno=0
+    princelevel = 100
+    gv = self.groupvolume
+    arrayranks = Array.new
 
+    if gv > princelevel  
+      self.rankno = 1
+    end
  
- 
-
- if gv > princelevel then 
- 
- self.rank = 1
- 
- if self.users.size > 0 then 
+    if self.users.length > 0 
      self.users.each { |dl| arrayranks = arrayranks + dl.promote }
-     if arrayranks.size > 2  and gv > princelevel then 
-     arrayranks.sort
-     self.rank = arrayranks[2] + 1
+     arrayranks.sort {|x,y| y <=> x } 
+
+     if (arrayranks.length > 2)  and (gv > princelevel )
+     
+        self.rankno = arrayranks[2] + 1
      end
- end
+    end
 
 
   self.save
-  return Array.new max of ( self.rank , arrayranks )
-
+  arrayranks=arrayranks + array[self.rankno]
+  
+  return Array[ arrayranks.max ]
+  
  
 end
 

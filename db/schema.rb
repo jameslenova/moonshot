@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120415200629) do
+ActiveRecord::Schema.define(:version => 20120417095648) do
 
   create_table "circles", :force => true do |t|
     t.integer  "event_id"
