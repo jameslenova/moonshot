@@ -4,6 +4,18 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
+  def makedownline
+     @user = User.find(params[:id])
+     @user.user_id=current_user.id
+     @user.save
+     redirect to users_path
+  end
+
+
+     
+
+    
+
   def index
     @users = User.paginate(page: params[:page])
   end
