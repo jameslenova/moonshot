@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   has_secure_password
-  has many :users
+  has_many :users
   belongs_to :user
   has_many :freefors, dependent: :destroy
   has_many :events, through: :freefors, source: :event
@@ -109,7 +109,7 @@ end
 
 #@foundgroups.each { |rec| @foundgroupssets.add([rec.first,rec.second,rec.third,rec.fouth].to_set)} 
 
-  end 
+  
 
   def feed
     Micropost.from_users_followed_by(self)

@@ -6,9 +6,13 @@ class UsersController < ApplicationController
 
   def makedownline
      @user = User.find(params[:id])
-     @user.user_id=current_user.id
-     @user.save
-     redirect to users_path
+     
+
+     @user.update_attribute(:user_id, current_user.id)
+     #Object.update_attribute(:only_one_field, "Some Value")
+     #@user.user_id=current_user.id
+     #@user.save
+     redirect_to users_path
   end
 
 

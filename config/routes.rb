@@ -29,7 +29,7 @@ SampleApp::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
   match 'shedule4eventbestfitnoclash/:id',    :to => "groups#shedule4eventbestfitnoclash",:as => :shedule4eventbestnoclash
-  match 'makedownline/:id',    :to => "user#makedownline",:as => :makedownline
+  match 'makedownline/:id',    :to => "users#makedownline",:as => :makedownline
 
 
 
