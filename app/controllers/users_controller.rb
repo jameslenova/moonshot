@@ -3,6 +3,17 @@ class UsersController < ApplicationController
                 only: [:index, :edit, :update, :following, :followers]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
+  
+  def promote
+     @user = User.find(params[:id])
+     
+
+     @user.promote
+     #Object.update_attribute(:only_one_field, "Some Value")
+     #@user.user_id=current_user.id
+     #@user.save
+     redirect_to root_path
+  end
 
   def makedownline
      @user = User.find(params[:id])

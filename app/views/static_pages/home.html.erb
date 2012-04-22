@@ -8,6 +8,10 @@
         <%= render 'shared/stats' %>
       </section>
       <section>
+        <%= link_to "promote" , promote_path(current_user) %>
+      </section>
+
+      <section>
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>
