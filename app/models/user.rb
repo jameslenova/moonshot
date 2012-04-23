@@ -1,5 +1,10 @@
+
+require 'set'
+
+
+
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :personalvolume
+  attr_accessible :name, :email, :password, :password_confirmation, :personalvolume,:groupvolume,:rankno
   has_secure_password
   has_many :users
   belongs_to :user
@@ -31,7 +36,7 @@ has_many :circleusers, :foreign_key => "user_id",
   validates :password_confirmation, presence: true
 
 
-  def groupvolume
+  def generategroupvolume
 
   firstlayerv=0
   secondlayerv=0
@@ -47,8 +52,8 @@ has_many :circleusers, :foreign_key => "user_id",
   arraysecondgeneration.each { |dl| arraythirdgeneration=arraythirdgeneration+dl.users }
 
   self.users.each { |dl| firstlayerv=firstlayerv+dl.personalvolume }
-  arraysecondgeneraton.each { |dl| secondlayerv=secondlayerv+dl.personalvolume }
-  arraythirdgeneraton.each { |dl| thirdlayerv=thirdlayerv+dl.personalvolume }
+  arraysecondgeneration.each { |dl| secondlayerv=secondlayerv+dl.personalvolume }
+  arraythirdgeneration.each { |dl| thirdlayerv=thirdlayerv+dl.personalvolume }
 
   return ( firstlayerv+secondlayerv + thirdlayerv)
 
@@ -60,30 +65,35 @@ has_many :circleusers, :foreign_key => "user_id",
 
 
  def promote
-    self.rankno=0
+    ranknotemp=0
     princelevel = 100
-    gv = self.groupvolume
+    
+    update_attribute(:groupvolume, self.generategroupvolume)
+
+    #@user.update_attribute(:user_id, current_user.id)
+
     arrayranks = Array.new
 
-    if gv > princelevel  
-      self.rankno = 1
+    if self.groupvolume  > princelevel  
+      ranknotemp= 1
     end
  
     if self.users.length > 0 
-     self.users.each { |dl| arrayranks = arrayranks + dl.promote }
+     self.users.each { |dl| arrayranks << dl.promote }
      arrayranks.sort {|x,y| y <=> x } 
 
-     if (arrayranks.length > 2)  and (gv > princelevel )
+     if (arrayranks.length > 2)  and (self.groupvolume   > princelevel )
      
-        self.rankno = arrayranks[2] + 1
+        ranknotemp = arrayranks[2] + 1
      end
     end
 
+  update_attribute(:rankno, ranknotemp)
 
-  self.save
-  arrayranks=arrayranks + array[self.rankno]
   
-  return Array[ arrayranks.max ]
+  arrayranks << self.rankno
+  
+  return arrayranks.max 
   
  
 end

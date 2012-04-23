@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, 
-                only: [:index, :edit, :update, :following, :followers]
-  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :following, :followers]
+  #before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
   
   def promote
@@ -12,7 +11,7 @@ class UsersController < ApplicationController
      #Object.update_attribute(:only_one_field, "Some Value")
      #@user.user_id=current_user.id
      #@user.save
-     redirect_to root_path
+     redirect_to @user
   end
 
   def makedownline
