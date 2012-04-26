@@ -11,6 +11,8 @@ class UsersController < ApplicationController
      #Object.update_attribute(:only_one_field, "Some Value")
      #@user.user_id=current_user.id
      #@user.save
+     sign_in @user
+
      redirect_to @user
   end
 

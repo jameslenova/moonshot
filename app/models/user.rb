@@ -80,13 +80,21 @@ has_many :circleusers, :foreign_key => "user_id",
  
     if self.users.length > 0 
      self.users.each { |dl| arrayranks << dl.promote }
-     arrayranks.sort {|x,y| y <=> x } 
+     #arrayranks.sort {|x,y| y <=> x } 
+
+     #if (arrayranks.length > 2)  and (self.groupvolume   > princelevel )
+     
+     #   ranknotemp = arrayranks[2] + 1
+     #end
+    end
+
+   arrayranks.sort {|x,y| y <=> x } 
 
      if (arrayranks.length > 2)  and (self.groupvolume   > princelevel )
      
         ranknotemp = arrayranks[2] + 1
      end
-    end
+
 
   update_attribute(:rankno, ranknotemp)
 
