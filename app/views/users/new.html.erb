@@ -5,6 +5,11 @@
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
+      
+
+      <%= f.hidden_field :user_id, :value => @upline %>
+
+
       <%= f.label :name %>
       <%= f.text_field :name %>
 

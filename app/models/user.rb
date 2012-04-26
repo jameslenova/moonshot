@@ -4,7 +4,7 @@ require 'set'
 
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email, :password, :password_confirmation, :personalvolume,:groupvolume,:rankno
+  attr_accessible :user_id,:name, :email, :password, :password_confirmation, :personalvolume,:groupvolume,:rankno
   has_secure_password
   has_many :users
   belongs_to :user

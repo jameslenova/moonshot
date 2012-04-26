@@ -16,6 +16,19 @@ class UsersController < ApplicationController
      redirect_to @user
   end
 
+ def recruit
+     @upline =params[:uid]
+     @user = User.new
+     render 'new'
+
+     
+
+     
+  end
+
+
+
+
   def makedownline
      @user = User.find(params[:id])
      
@@ -24,7 +37,8 @@ class UsersController < ApplicationController
      #Object.update_attribute(:only_one_field, "Some Value")
      #@user.user_id=current_user.id
      #@user.save
-     redirect_to users_path
+     redirect_to @user
+
   end
 
 

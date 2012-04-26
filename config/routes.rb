@@ -31,6 +31,7 @@ SampleApp::Application.routes.draw do
   match 'shedule4eventbestfitnoclash/:id',    :to => "groups#shedule4eventbestfitnoclash",:as => :shedule4eventbestnoclash
   match 'makedownline/:id',    :to => "users#makedownline",:as => :makedownline
   match 'promote/:id',    :to => "users#promote",:as => :promote
+  match 'recruit/:uid',    :to => "users#recruit",:as => :recruit
 
 
 
