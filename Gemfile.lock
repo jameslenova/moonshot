@@ -116,6 +116,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.5)
   coffee-rails (= 3.2.2)
   jquery-rails (= 2.0.0)
+  mail
   pg
   rails (= 3.2.2)
   sass-rails (= 3.2.4)

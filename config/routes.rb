@@ -32,6 +32,8 @@ SampleApp::Application.routes.draw do
   match 'makedownline/:id',    :to => "users#makedownline",:as => :makedownline
   match 'promote/:id',    :to => "users#promote",:as => :promote
   match 'recruit/:uid',    :to => "users#recruit",:as => :recruit
+  match 'mail/:uid',    :to => "users#mail",:as => :mail
+
 
 
 

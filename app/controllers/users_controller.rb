@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   #before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
   
+
+
   def promote
      @user = User.find(params[:id])
      
@@ -15,6 +17,25 @@ class UsersController < ApplicationController
 
      redirect_to @user
   end
+
+
+
+def mail
+     @user = User.find(params[:uid])
+     UserMailer.welcome_email(@user).deliver
+     redirect_to @user
+
+
+
+     
+     
+
+     
+
+     
+  end
+
+ 
 
  def recruit
      @upline =params[:uid]
