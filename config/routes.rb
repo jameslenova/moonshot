@@ -33,6 +33,8 @@ SampleApp::Application.routes.draw do
   match 'promote/:id',    :to => "users#promote",:as => :promote
   match 'recruit/:uid',    :to => "users#recruit",:as => :recruit
   match 'mail/:uid',    :to => "users#mail",:as => :mail
+  match '/search',    :to => "users#search",:as => :searchusers
+
 
 
 

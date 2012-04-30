@@ -62,6 +62,15 @@ def mail
 
   end
 
+def search
+    @qa = params[:q].split.join(" &  ")
+        @users=User.where(" to_tsvector(name) @@ to_tsquery('"+@qa+"')")
+
+
+    render 'test'
+
+
+  end
 
      
 
